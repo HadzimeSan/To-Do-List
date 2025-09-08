@@ -1,0 +1,268 @@
+:root {
+    --bg: #0f172a;
+    --panel: #111827;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --primary: #22d3ee;
+    --danger: #ef4444;
+    --border: #1f2937;
+    --shadow: 0 10px 25px rgba(0,0,0,.35);
+}
+
+/* Light theme */
+:root.theme-light {
+    --bg: #f3f4f6;
+    --panel: #ffffff;
+    --text: #0b1220;
+    --muted: #6b7280;
+    --primary: #2563eb;
+    --danger: #dc2626;
+    --border: #e5e7eb;
+}
+
+/* Pink theme */
+:root.theme-pink {
+    --bg: #2b1029;
+    --panel: #3a1438;
+    --text: #ffe4f1;
+    --muted: #f5b8d2;
+    --primary: #ff5bbd;
+    --danger: #ff8da8;
+    --border: #4b1a46;
+}
+
+/* System theme uses prefers-color-scheme; default variables are dark. */
+@media (prefers-color-scheme: light) {
+    :root.theme-system {
+        --bg: #f3f4f6;
+        --panel: #ffffff;
+        --text: #0b1220;
+        --muted: #6b7280;
+        --primary: #2563eb;
+        --danger: #dc2626;
+        --border: #e5e7eb;
+    }
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    background: var(--bg);
+    color: var(--text);
+    display: block;
+    padding: 24px;
+}
+
+.app {
+    width: 100%;
+    max-width: 720px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin: 24px auto;
+}
+
+.header { padding: 20px 20px 8px; }
+.header h1 {
+    margin: 0 0 12px;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.theme-switcher {
+    margin-top: 10px;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+}
+.theme-switcher select {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 10px;
+}
+.open-theme-btn {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 10px;
+    cursor: pointer;
+}
+.lang-switcher select {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 10px;
+}
+
+.theme-customizer {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px 12px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px;
+}
+.theme-customizer .row {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.theme-customizer label {
+    color: var(--muted);
+    font-size: 12px;
+}
+.theme-customizer input[type="color"] {
+    width: 40px; height: 28px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0;
+}
+
+/* Modal */
+.modal { position: fixed; inset: 0; display: none; }
+.modal[aria-hidden="false"] { display: block; }
+.modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.5); }
+.modal-dialog {
+    position: relative;
+    margin: 8vh auto;
+    width: min(720px, 92vw);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 12px 12px 16px;
+}
+.modal-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 6px 12px; }
+.modal-close {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 32px; height: 32px;
+    cursor: pointer;
+}
+
+#new-task-form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+}
+
+#new-task-input {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    outline: none;
+}
+#new-task-input::placeholder { color: var(--muted); }
+
+#add-task-btn {
+    background: var(--primary);
+    color: #0b1022;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+#add-task-btn:hover { filter: brightness(1.05); }
+
+.main { padding: 8px 8px 0; }
+.task-list { list-style: none; margin: 0; padding: 0; }
+
+.task {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
+    align-items: center;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    margin: 8px 0;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.task.dragging {
+    opacity: .7;
+    outline: 2px dashed var(--primary);
+}
+
+.task input[type="checkbox"] {
+    width: 18px; height: 18px; cursor: pointer;
+}
+
+.task .title {
+    outline: none;
+    word-break: break-word;
+}
+
+.task.completed .title { text-decoration: line-through; color: var(--muted); }
+
+.task .destroy {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.task .destroy:hover { color: #fff; border-color: #334155; }
+
+.edit-input {
+    width: 100%;
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+}
+
+.footer {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 10px;
+    align-items: center;
+    padding: 12px 20px 20px;
+}
+
+.items-left { color: var(--muted); }
+
+.filters { display: inline-flex; gap: 6px; }
+.filters .filter {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+}
+.filters .filter.is-active { border-color: var(--primary); color: var(--primary); }
+
+.clear-completed {
+    background: transparent;
+    color: var(--danger);
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.clear-completed:hover { border-color: #334155; }
+
+@media (max-width: 520px) {
+    .footer { grid-template-columns: 1fr; }
+}
+
+

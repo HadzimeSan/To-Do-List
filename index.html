@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>To‑Do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app" role="application" aria-label="To-Do List">
+        <header class="header">
+            <h1 id="i18n-title">Задачи</h1>
+            <form id="new-task-form" autocomplete="off">
+                <input id="new-task-input" type="text" placeholder="Что нужно сделать?" aria-label="Добавить задачу">
+                <button id="add-task-btn" type="submit">Добавить</button>
+            </form>
+            <div class="theme-switcher">
+                <label for="theme-select" id="i18n-theme-label">Тема:</label>
+                <select id="theme-select" aria-label="Выбор темы">
+                    <option value="system" data-i18n="theme.system">Системная</option>
+                    <option value="light" data-i18n="theme.light">Светлая</option>
+                    <option value="dark" data-i18n="theme.dark">Тёмная</option>
+                    <option value="pink" data-i18n="theme.pink">Розовая</option>
+                    <option value="custom" data-i18n="theme.custom">Пользовательская</option>
+                </select>
+                <button id="open-theme-customizer" class="open-theme-btn" hidden>Настроить</button>
+                <div class="lang-switcher">
+                    <label for="lang-select" id="i18n-lang-label">Язык:</label>
+                    <select id="lang-select" aria-label="Выбор языка">
+                        <option value="ru">Русский</option>
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="de">Deutsch</option>
+                        <option value="fr">Français</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <section class="main">
+            <ul id="task-list" class="task-list" aria-live="polite"></ul>
+        </section>
+
+        <footer class="footer">
+            <span id="items-left" class="items-left">0 активных</span>
+            <div class="filters" role="tablist" aria-label="Фильтры">
+                <button class="filter is-active" data-filter="all" role="tab" aria-selected="true">Все</button>
+                <button class="filter" data-filter="active" role="tab" aria-selected="false">Активные</button>
+                <button class="filter" data-filter="completed" role="tab" aria-selected="false">Выполненные</button>
+            </div>
+            <button id="clear-completed" class="clear-completed">Очистить выполненные</button>
+        </footer>
+    </main>
+
+    <div id="theme-modal" class="modal" aria-hidden="true" hidden>
+        <div class="modal-backdrop"></div>
+        <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="theme-modal-title">
+            <div class="modal-header">
+                <h2 id="theme-modal-title">Пользовательская тема</h2>
+                <button id="close-theme-modal" class="modal-close" aria-label="Закрыть">×</button>
+            </div>
+            <div id="theme-customizer" class="theme-customizer">
+                <div class="row"><label>Фон</label><input type="color" id="color-bg"></div>
+                <div class="row"><label>Панель</label><input type="color" id="color-panel"></div>
+                <div class="row"><label>Текст</label><input type="color" id="color-text"></div>
+                <div class="row"><label>Мутный</label><input type="color" id="color-muted"></div>
+                <div class="row"><label>Primary</label><input type="color" id="color-primary"></div>
+                <div class="row"><label>Граница</label><input type="color" id="color-border"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+    
+</body>
+</html>
+
+
